@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segmentación de Terrenos - IA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Segmentación de Terrenos con IA</h1>
+            <p>Sube una imagen de terreno y descubre áreas de inundación y depresiones</p>
+        </header>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <span class="upload-icon">📁</span>
+                    <h3>Arrastra tu imagen aquí</h3>
+                    <p>o haz clic para seleccionar</p>
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+                    <button class="btn-primary" id="selectImageBtn">
+                        Seleccionar Imagen
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section" id="resultsSection" style="display: none;">
+            <h2>Resultados del Análisis</h2>
+            
+            <div class="images-comparison">
+                <div class="image-container">
+                    <h3>Imagen Original</h3>
+                    <img id="originalImage" class="display-image" src="" alt="Imagen original">
+                </div>
+                
+                <div class="image-container">
+                    <h3>Segmentación Predicha</h3>
+                    <img id="predictionImage" class="display-image" src="" alt="Predicción">
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span class="color-swatch normal"></span>
+                            <span>Normal</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-swatch inundacion"></span>
+                            <span>Inundación</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-swatch depresion"></span>
+                            <span>Depresión</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                    <h3>Superposición</h3>
+                    <div class="overlay-wrapper">
+                        <img id="overlayOriginalImage" class="overlay-original" src="" alt="Original" />
+                        <img id="overlayPredImage" class="overlay-pred" src="" alt="Overlay" />
+                    </div>
+                    <div style="margin-top:10px;">
+                        <label for="overlayOpacity">Opacidad de la segmentación:</label>
+                        <input id="overlayOpacity" type="range" min="0" max="1" step="0.05" value="0.5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="statistics">
+                <h3>Estadísticas de la Predicción</h3>
+                <div class="stats-grid">
+                    <div class="stat-card normal">
+                        <h4>Terreno Normal</h4>
+                        <div class="stat-value" id="normalStat">0%</div>
+                        <div class="stat-pixels" id="normalPixels">0 píxeles</div>
+                    </div>
+                    
+                    <div class="stat-card inundacion">
+                        <h4>Área Inundada</h4>
+                        <div class="stat-value" id="inundacionStat">0%</div>
+                        <div class="stat-pixels" id="inundacionPixels">0 píxeles</div>
+                    </div>
+                    
+                    <div class="stat-card depresion">
+                        <h4>Depresiones</h4>
+                        <div class="stat-value" id="depresionStat">0%</div>
+                        <div class="stat-pixels" id="depresionPixels">0 píxeles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analizando imagen...</p>
+        </div>
+
+        <div class="error" id="error" style="display: none;">
+            <p id="errorMessage"></p>
+        </div>
+
+        <footer>
+            <p>Powered by TensorFlow Lite | Modelo entrenado con ViT-UNet</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
