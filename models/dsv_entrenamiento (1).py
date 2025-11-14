@@ -747,31 +747,3 @@ for i in range(len(height_bins) - 1):
         bin_accuracy = np.mean(y_true_flat[mask] == y_pred_flat[mask])
         accuracies_by_height.append(bin_accuracy)
         print(f"Altura [{height_bins[i]:.3f}-{height_bins[i+1]:.3f}]: {bin_accuracy:.4f} precisión")
-
-"""# Resumen de evaluación"""
-
-print("\n" + "=" * 50)
-print("📋 RESUMEN FINAL DE EVALUACIÓN")
-print("=" * 50)
-
-print(f"✅ PUNTOS FUERTES:")
-print(f"   • Precisión general: {test_accuracy:.4f}")
-print(f"   • Pérdida general: {test_loss:.4f}")
-print(f"   • Modelo estable y consistente")
-
-print(f"\n📊 ESTADÍSTICAS CLAVE:")
-print(f"   • Total de píxeles evaluados: {len(y_true_flat):,}")
-print(f"   • Tasa de error: {(1-test_accuracy)*100:.2f}%")
-print(f"   • Confianza promedio: {mean_confidence:.4f}")
-
-print(f"\n🎯 RECOMENDACIONES:")
-if test_accuracy > 0.95:
-    print("   • Excelente rendimiento - Listo para producción")
-else:
-    print("   • Considerar más entrenamiento o ajuste de hiperparámetros")
-
-# Limpiar memoria
-del X_test, y_test, y_test_cat, y_pred_probs
-gc.collect()
-
-print("\n🎉 EVALUACIÓN COMPLETADA")
